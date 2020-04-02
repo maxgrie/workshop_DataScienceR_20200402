@@ -69,7 +69,14 @@ head(covidDataCountries)
 # plot the confirmed cases for these countries in one plot
 ggplot(data=covidDataCountries, aes(x=Date, y=Confirmed, color=Country.Region)) + geom_line() + theme_minimal()
 
+##### the total number of cases per country sorted
+totalCases <- covidData %>% 
+    group_by(Country.Region) %>%
+    summarise(Confirmed = sum(Confirmed),deaths = sum(deaths),recovered = sum(recovered)) %>%
+    arrange(desc(Confirmed))
+totalCases
 
+#ggplot(data=totalCases, aes(x=Country.Region, y=Confirmed)) + geom_bar(stat="identity") + theme_minimal()
 
 ########## simple machine learning task #############
 #### trying to predict the future
