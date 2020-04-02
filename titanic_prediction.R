@@ -126,7 +126,7 @@ full$Embarked[c(62, 830)] <- 'C'
 # Show row 1044
 full[1044, ]
 
-This is a third class passenger who departed from Southampton ('S'). Let's visualize Fares among all others sharing their class and embarkment (n = `r nrow(full[full$Pclass == '3' & full$Embarked == 'S', ]) - 1`).
+#This is a third class passenger who departed from Southampton ('S'). Let's visualize Fares among all others sharing their class and embarkment (n = `r nrow(full[full$Pclass == '3' & full$Embarked == 'S', ]) - 1`).
 
 ggplot(full[full$Pclass == '3' & full$Embarked == 'S', ], 
        aes(x = Fare)) +
@@ -290,5 +290,7 @@ prediction <- predict(rf_model, test)
 # Save the solution to a dataframe with two columns: PassengerId and Survived (prediction)
 solution <- data.frame(PassengerID = test$PassengerId, Survived = prediction)
 
+
 # Write the solution to file
 write.csv(solution, file = 'rf_mod_Solution.csv', row.names = F)
+
