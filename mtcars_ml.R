@@ -5,13 +5,11 @@ head(mtcars)
 ?mtcars # show data description
 
 summary(mtcars)
+
 # n = anzahl der reihen
 n     <- nrow(mtcars) #number of rows
-
 # split in trainings und test set
-train <- mtcars[sample(n, n/2), ]
-train <- sample_n(mtcars, n / 2)
-
+train <- mtcars[sample(n, n*0.7), ]
 test <- mtcars[setdiff(row.names(mtcars), row.names(train)), ]
 
 
@@ -19,8 +17,8 @@ test <- mtcars[setdiff(row.names(mtcars), row.names(train)), ]
 library(class)
 # train model
 (model.knn <- knn(
-    train = subset(train, select = -gear),
-    test  = subset(test, select = -gear),
+    train = train,
+    test  = test,
     cl    = train$gear,
     k     = 5))
 # show importance
@@ -28,9 +26,8 @@ plot(model.knn)
 
 # calculate root mean squared error
 sqrt(mean((test$gear- as.numeric(as.character(model.knn)))^2))
-
 # confusion matrix
-table(test$gear, as.numeric(as.character(model.knn)))
+table(test$gear, model.knn)
 
 ### classification tree
 library(rpart)
